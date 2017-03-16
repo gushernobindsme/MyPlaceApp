@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.android.sample.myplaceapp">
+
+    <!-- メモ帳Providerの読み込み権限を宣言する -->
+    <permission
+        android:name="com.example.android.sample.myplaceapp.place.read"
+        android:protectionLevel="normal"
+        android:label="@string/permission_place_read_label"
+        android:description="@string/permission_place_read_description"/>
+
+    <!-- メモ帳Providerの書き込み権限を宣言する -->
+    <permission
+        android:name="com.example.android.sample.myplaceapp.place.write"
+        android:protectionLevel="signature"
+        android:label="@string/permission_place_write_label"
+        android:description="@string/permission_place_write_description"/>
+
+    <!-- 作成したパーミッションの使用を宣言する -->
+    <uses-permission android:name="com.example.android.sample.myplaceapp.place.read"/>
+    <uses-permission android:name="com.example.android.sample.myplaceapp.place.write"/>
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".location.PlaceStoreService" android:exported="false"/>
+
+        <!-- 位置情報のContentProvider -->
+        <provider
+            android:authorities="com.example.android.sample.myplaceapp.place"
+            android:name=".location.PlaceProvider"
+            android:readPermission="com.example.android.sample.myplaceapp.place.read"
+            android:writePermission="com.example.android.sample.myplaceapp.place.write"
+            android:exported="false"/>
+
+        <!-- Google Maps Android API用 -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBA75u68UP0cxQkvadCksJhVop8CqHwuAI" />
+    </application>
+
+</manifest>
